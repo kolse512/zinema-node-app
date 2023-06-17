@@ -1,4 +1,4 @@
-import billingInfoModel from "./billing-info-model";
+import billingInfoModel from "./billing-info-model.js";
 export const findBillingInfoById = (bid) => billingInfoModel.findById(bid);
 export const createBillingInfo = (billing) => billingInfoModel.create(billing);
 export const deleteBillingInfo = (bid) => billingInfoModel.deleteOne({_id: bid});

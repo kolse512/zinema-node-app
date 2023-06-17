@@ -1,4 +1,4 @@
-import userModel from "./user-model";
+import userModel from './user-model.js';
 export const findUserById = (uid) => userModel.findById(uid);
 export const findUserByUsername = (username) => userModel.findOne({ username });
 export const createUser = (user) => userModel.create(user);

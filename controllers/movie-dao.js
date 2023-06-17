@@ -1,4 +1,4 @@
-import movieModel from "./movie-model";
+import movieModel from "./movie-model.js";
 export const findMovieById = (mid) => movieModel.findById(mid);
 export const findMovieByContentType = (contentType) => movieModel.findOne({ contentType });
 export const createMovie = (movie) => movieModel.create(movie);

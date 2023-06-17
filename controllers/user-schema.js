@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 const userSchema = mongoose.Schema({
-  userName: String,
   dob: Date,
   userType: {
     type: String,
@@ -15,6 +14,7 @@ const userSchema = mongoose.Schema({
   followingList: [mongoose.Types.ObjectId],
   profilePicture: String,
   firstName: String,
-  lastName: String
+  lastName: String,
+  phoneNumber: String,
 }, {collection: 'users'});
 export default userSchema;
