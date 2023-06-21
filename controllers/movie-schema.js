@@ -27,6 +27,6 @@ const movieSchema = mongoose.Schema({
     enum: ['BASIC', 'PREMIUM', 'ADMIN']
   },
   comments: [commentSchema]
-}, { collection: 'movie' });
+}, { collection: 'movies' });
 
 export default movieSchema;

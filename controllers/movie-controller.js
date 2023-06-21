@@ -1,14 +1,28 @@
 import * as movieDao from "./movie-dao.js";
 
 const MovieController = (app) => {
-  // Other controller methods...
 
-  const addComment = async (req, res) => {
+  const updateComment = async (req, res) => {
     const { movieId } = req.params;
     const { comment } = req.body;
 
     try {
-      const movie = await movieDao.addComment(movieId, comment);
+      console.log("in movieController updateComment method");
+      const movie = await movieDao.updateComment(movieId, comment);
+      res.json(movie);
+    } catch (error) {
+      console.error(error);
+      res.sendStatus(500);
+    }
+
+  }
+  const createComment = async (req, res) => {
+    const { movieId } = req.params;
+    const { comment } = req.body;
+
+    try {
+      console.log("in movieController createComment method");
+      const movie = await movieDao.createComment(movieId, comment);
       res.json(movie);
     } catch (error) {
       console.error(error);
@@ -16,11 +30,12 @@ const MovieController = (app) => {
     }
   };
 
-  const fetchComments = async (req, res) => {
+  const findComments = async (req, res) => {
     const { movieId } = req.params;
 
     try {
-      const comments = await movieDao.fetchComments(movieId);
+      console.log("in movieController findComments method");
+      const comments = await movieDao.findComments(movieId);
       res.json(comments);
     } catch (error) {
       console.error(error);
@@ -31,8 +46,9 @@ const MovieController = (app) => {
   // Other controller methods...
 
   // another consideration, how to create and update comments in a single function?
-  app.post("/api/movies/:movieId/comments", addComment);
-  app.get("/api/movies/:movieId/comments", fetchComments);
+  app.post("/api/movies/comments/:movieId", createComment);
+  app.get("/api/movies/comments/:movieId", findComments);
+  app.put("/api/movies/comments/:movieId", updateComment);
 
   // Other routes...
 };
