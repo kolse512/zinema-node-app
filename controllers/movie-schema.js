@@ -15,11 +15,13 @@ const commentSchema = new mongoose.Schema({
     // required: true
   },
   firstName: String,
-  lastName: String
+  lastName: String,
+  username: String
 });
 
 const movieSchema = mongoose.Schema({
   name: String,
+  movie_id: String,
   dateAdded: Date,
   dateExpiry: Date,
   contentType: {

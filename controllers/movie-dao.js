@@ -6,11 +6,14 @@ export const deleteMovie = (mid) => movieModel.deleteOne({ _id: mid });
 export const updateMovie = (mid, movie) => movieModel.updateOne({ _id: mid }, { $set: movie });
 export const findAllMovies = () => movieModel.find({});
 
-export const createComment = (mid) => movieModel.create(mid);
-export const findComments = (mid) => movieModel.findById(mid);
-export const updateComment = (mid, comment) => movieModel.updateOne({ _id: mid }, { $push: { comments: comment } });
-// export const updateComment = (mid, comment) => movieModel.findByIdAndUpdate(mid, { $push: { comments: comment } }, { new: true });
+// working methods so far:
+// export const createComment = (mid) => movieModel.create(mid);
+// export const findComments = (mid) => movieModel.findById(mid);
+// export const updateComment = (mid, comment) => movieModel.updateOne({ _id: mid }, { $push: { comments: comment } });
 
+export const createComment = (mid) => movieModel.create(mid);
+export const findComments = (mid) => movieModel.findOne({ movie_id: mid });
+export const updateComment = (mid, comment) => movieModel.updateOne({ movie_id: mid }, { $push: { comments: comment } });
 
 // finding the movie and pushing comments into the comments array
 // export const updateComment = (mid, comment) => {
