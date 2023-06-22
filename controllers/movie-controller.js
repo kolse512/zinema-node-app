@@ -6,7 +6,8 @@ const MovieController = (app) => {
     const { movieId } = req.params;
     const { comment } = req.body;
     console.log("in movieController updateComment method");
-    const movie = await movieDao.updateComment(movieId, comment);
+    console.log("req body test: ", req.body);
+    const movie = await movieDao.updateComment(movieId, req.body);
     res.json(movie);
   }
   const createComment = async (req, res) => {
