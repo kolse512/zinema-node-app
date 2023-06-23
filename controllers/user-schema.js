@@ -16,5 +16,5 @@ const userSchema = mongoose.Schema({
   firstName: String,
   lastName: String,
   phoneNumber: String,
-}, {collection: 'users'});
+}, { collection: 'users' });
 export default userSchema;
