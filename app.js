@@ -8,8 +8,18 @@ import MovieController from './controllers/movie-controller.js';
 
 
 // const CONNECTION_STRING = 'mongodb://127.0.0.1:27017/zinema' //'mongodb+srv://Cluster57626:anjali@cluster0.jyy3myf.mongodb.net/zinema'
-const CONNECTION_STRING = 'mongodb+srv://Cluster57626:anjali@cluster0.jyy3myf.mongodb.net/zinema'
-mongoose.connect(CONNECTION_STRING);
+// // const CONNECTION_STRING = 'mongodb+srv://Cluster57626:anjali@cluster0.jyy3myf.mongodb.net/zinema'
+// mongoose.connect(CONNECTION_STRING);
+
+
+mongoose.connect('mongodb://127.0.0.1:27017/zinema')
+.then(() => {
+  console.log("Connected to mongo db");
+})
+.catch((err) => {
+  console.log(err);
+});
+
 
 const app = express()
 app.use(

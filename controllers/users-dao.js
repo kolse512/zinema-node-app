@@ -6,3 +6,5 @@ export const deleteUser = (uid) => userModel.deleteOne({_id: uid});
 export const updateUser = (uid, user) => userModel.updateOne({_id: uid}, {$set: user});
 export const findUserByCredentials = (username, password) => userModel.findOne({ username, password });
 export const findAllUsers = () => userModel.find({});
+// export const findUserByFirstName = (firstName) => userModel.findOne({ firstName });
+// export const findUserByLastName = (lastName) => userModel.findOne({ lastName });

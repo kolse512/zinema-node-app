@@ -12,18 +12,24 @@ const AuthController = (app) => {
   };
 
   const login = async (req, res) => {
+    console.log("Inside login controller");
     const username = req.body.username;
     const password = req.body.password;
     const user = await usersDao.findUserByCredentials(username, password);
     if (user) {
+      console.log("Login done");
+      console.log("user = ", user);
       req.session["currentUser"] = user;
       res.json(user);
     } else {
+      console.log("Login failed");
       res.sendStatus(404);
     }
   };
 
-  const profile = async (req, res) => {
+  const profile = (req, res) => {
+    console.log("Inside profile controller");
+    console.log("current user = ", req.session["currentUser"]);
     const currentUser = req.session["currentUser"];
     if (!currentUser) {
       res.sendStatus(404);
