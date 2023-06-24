@@ -6,7 +6,7 @@ const UserController = (app) => {
   app.post('/api/users', createUser);
   app.delete('/api/users/:uid', deleteUser);
   // app.put('/api/users/:uid', updateUser);
-  app.put('/api/users/movies/:uid', favoriteToggle);
+  app.put('/api/users/movies/favorites/:uid', favoriteToggle);
 }
 
 const favoriteToggle = async (req, res) => {
