@@ -1,4 +1,4 @@
-import * as usersDao from "./billing-dao.js";
+import * as billingDao from "./billing-dao.js";
 
 const BillingController = (app) => {
    app.get('/api/billing', findUsers);
@@ -6,38 +6,46 @@ const BillingController = (app) => {
    app.post('/api/billing', createUser);
    app.delete('/api/billing/:uid', deleteUser);
    app.put('/api/billing/:uid', updateUser);
+   app.post('/api/billing/cards', findCardsByIds);
 }
 
 const updateUser = async (req, res) => {
   const userId = req.params['uid'];
   const updates = req.body;
   const status = await billingDao
-                     .updateUser(userId, updates);
-  const user = await usersDao.findUserById(userId);
+                     .updateBilling(userId, updates);
+  const user = await billingDao.findBillingById(userId);
   req.session["currentUser"] = user;
   res.json(status);
   }
       
 const deleteUser = async (req, res) => {
     const userId = req.params['uid'];
-    const status = await billingDao.deleteUser(userId);
+    const status = await billingDao.deleteBilling(userId);
     res.sendStatus(status);
   }
     
 const createUser = async (req, res) => {
-    const newUser = await billingDao.createUser(req.body);
+    const { ['_id']: _id, ...reqWithoutProfileId } = req.body 
+    const newUser = await billingDao.createBilling(reqWithoutProfileId);
     res.json(newUser);
   }
   
 const findUserById = async (req, res) => {
     const userId = req.params.uid;
-    const user = await billingDao.findUserById(userId);
+    const user = await billingDao.findBillingById(userId);
     res.json(user);
   }
   
 const findUsers = async (req, res) => {
-   const users = await billingDao.findAllUsers();
+   const users = await billingDao.findAllBilling();
    res.json(users);
 }
+
+const findCardsByIds = async (req, res) => {
+  const cardIds = req.body.cardIds; // Assuming card IDs are sent in the request body
+  const cards = await billingDao.findCardsByIds(cardIds);
+  res.json(cards);
+};
 
 export default BillingController;

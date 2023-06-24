@@ -16,9 +16,11 @@ const AuthController = (app) => {
     const password = req.body.password;
     const user = await usersDao.findUserByCredentials(username, password);
     if (user) {
+      console.log("In logn , user found = ", user);
       req.session["currentUser"] = user;
       res.json(user);
     } else {
+      console.log("USER NOT FOUND in login");
       res.sendStatus(404);
     }
   };
@@ -26,9 +28,11 @@ const AuthController = (app) => {
   const profile = async (req, res) => {
     const currentUser = req.session["currentUser"];
     if (!currentUser) {
+      console.log("No current user in profile");
       res.sendStatus(404);
       return;
     }
+    console.log('Current user in profile = ', currentUser);
     res.json(currentUser);
   };
 
