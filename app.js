@@ -29,7 +29,7 @@ app.use(cors({
 )
 
 UserController(app);
+MovieController(app);
 BillingController(app);
 AuthController(app);
-MovieController(app);
 app.listen(process.env.PORT || 4000) 
