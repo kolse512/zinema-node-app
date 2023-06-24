@@ -16,5 +16,10 @@ const userSchema = mongoose.Schema({
   firstName: String,
   lastName: String,
   phoneNumber: String,
+  cardsList: [mongoose.Types.ObjectId],
+  billingStatus: {
+    type: String,
+    enum: ['PAID', 'PENDING']
+  },
 }, {collection: 'users'});
 export default userSchema;
