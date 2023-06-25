@@ -8,21 +8,48 @@ const UserController = (app) => {
   app.put('/api/users/:uid', updateUser);
   app.put('/api/users/update/anyuser', updateAnyUser);
   app.put('/api/users/movies/favorites/:uid', favoriteToggle);
-  app.get('/api/users/firstname/:firstname', findUserByFirstName);
-  app.get('/api/users/lastname/:lastname', findUserByLastName);
+  // app.get('/api/users/firstname/:firstname', findUserByFirstName);
+  // app.get('/api/users/lastname/:lastname', findUserByLastName);
+  app.get('/api/users/searchprofile/:query', searchProfiles);
 }
 
-const findUserByFirstName = async (req,res) => {
-  const fname = req.params.firstname;
-  const users = usersDao.findUserOnFirstname(fname);
-  res.json(users);
-};
+// const findUserByFirstName = async (req,res) => {
+//   const fname = req.params.firstname;
+//   const users = usersDao.findUserOnFirstname(fname);
+//   res.json(users);
+// };
 
-const findUserByLastName = async (req,res) => {
-  const lname = req.params.lastname;
-  const users = usersDao.findUserOnLastname(lname);
-  res.json(users);
-};
+// const findUserByLastName = async (req,res) => {
+//   const lname = req.params.lastname;
+//   const users = usersDao.findUserOnLastname(lname);
+//   res.json(users);
+// };
+
+const searchProfiles = async (req,res) => {
+  console.log("Inside search profiles");
+  const query = req.params['query'];
+  console.log("Query = ", query);
+  console.log("QUERY = ",{query});
+  const usersFound = [];
+  const firstnameMatches = await usersDao.findUserOnFirstname(query);
+  console.log("First name = ", firstnameMatches);
+  if(firstnameMatches){
+    usersFound.push(firstnameMatches);
+  }
+  
+  const lastnameMatches = await usersDao.findUserOnLastname(query);
+  console.log("Last name = ",lastnameMatches);
+  if(lastnameMatches){
+    usersFound.push(lastnameMatches);
+  }
+  
+  const usernameMatches = await usersDao.findUserByUsername(query);
+  console.log("Username = ", usernameMatches);
+  if(usernameMatches){
+    usersFound.push(usernameMatches);
+  }
+  res.json(usersFound);
+}
 
 
 const favoriteToggle = async (req, res) => {
