@@ -12,6 +12,7 @@ const userSchema = mongoose.Schema({
   billingId: mongoose.Types.ObjectId,
   watchList: [{ "movie_id": String }],
   followingList: [{ "user_id": mongoose.Types.ObjectId }],
+  favorites: [{ "movie_id": Number }],
   profilePicture: String,
   firstName: String,
   lastName: String,
@@ -21,5 +22,5 @@ const userSchema = mongoose.Schema({
     type: String,
     enum: ['PAID', 'PENDING']
   },
-}, {collection: 'users'});
+}, { collection: 'users' });
 export default userSchema;
