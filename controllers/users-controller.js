@@ -6,9 +6,24 @@ const UserController = (app) => {
   app.post('/api/users', createUser);
   app.delete('/api/users/:uid', deleteUser);
   app.put('/api/users/:uid', updateUser);
-  //  app.put('/api/users/updates', updateAnyUser);
+  app.put('/api/users/update/anyuser', updateAnyUser);
   app.put('/api/users/movies/favorites/:uid', favoriteToggle);
+  app.get('/api/users/firstname/:firstname', findUserByFirstName);
+  app.get('/api/users/lastname/:lastname', findUserByLastName);
 }
+
+const findUserByFirstName = async (req,res) => {
+  const fname = req.params.firstname;
+  const users = usersDao.findUserOnFirstname(fname);
+  res.json(users);
+};
+
+const findUserByLastName = async (req,res) => {
+  const lname = req.params.lastname;
+  const users = usersDao.findUserOnLastname(lname);
+  res.json(users);
+};
+
 
 const favoriteToggle = async (req, res) => {
   const userId = req.params['uid'];

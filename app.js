@@ -17,7 +17,8 @@ app.use(
   session({
     secret: "any string",
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: true,
+    // store: new session.MemoryStore(),
   })
 );
 
