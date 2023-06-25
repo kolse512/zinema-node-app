@@ -13,20 +13,20 @@ const CONNECTION_STRING = 'mongodb://127.0.0.1:27017/zinema' //'mongodb+srv://Cl
 mongoose.connect(CONNECTION_STRING);
 
 const app = express()
+
+app.use(cors({
+  credentials: true,
+  origin: "http://localhost:3000",}));
+
 app.use(
   session({
     secret: "any string",
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: false
   })
 );
 
 app.use(express.json());
-app.use(cors({
-  credentials: true,
-  origin: "http://localhost:3000",
-})
-)
 
 UserController(app);
 MovieController(app);
