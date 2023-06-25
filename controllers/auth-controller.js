@@ -42,14 +42,20 @@ const AuthController = (app) => {
   };
 
   const update = async (req, res) => {
+    console.log("In update call");
+    console.log("In update call req body", req.body);
     const userId = req.session["currentUser"]._id;
+    console.log("In update call current user", req.session["currentUser"]);
+    console.log("In update call", userId);
     const updatedUser = await usersDao.updateUser(userId, req.body);
     if (!updatedUser) {
       res.sendStatus(404);
       return;
     }
-    req.session["currentUser"] = updatedUser;
-    res.json(updatedUser);
+    const user = await usersDao.findUserById(userId);
+    console.log("In update call", user);
+    req.session["currentUser"] = user;
+    res.json(user);
   };
 
   app.post("/api/users/register", register);

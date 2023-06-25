@@ -25,8 +25,8 @@ const favoriteToggle = async (req, res) => {
   } else {
     status = await usersDao.deleteFavorite(userId, body);
   }
-  // const user = await usersDao.findUserById(userId);
-  // req.session["currentUser"] = user;
+  const user = await usersDao.findUserById(userId);
+  req.session["currentUser"] = user;
   res.json(status);
 }
 
