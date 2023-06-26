@@ -9,5 +9,5 @@ export const findAllUsers = () => userModel.find({});
 export const findUserOnFirstname = (fname) => userModel.findOne({firstname : fname});
 export const findUserOnLastname = (lname) => userModel.findOne({lastname : lname});
 // main favoriting functionality with username
-export const addFavorite = (uid, mid) => userModel.updateOne({ username: uid }, { $push: { favorites: mid } });
-export const deleteFavorite = (uid, mid) => userModel.updateOne({ username: uid }, { $pull: { favorites: mid } });
+export const addFavorite = (uid, mid) => userModel.updateOne({ username: uid }, { $push: { watchList: mid } });
+export const deleteFavorite = (uid, mid) => userModel.updateOne({ username: uid }, { $pull: { watchList: mid } });

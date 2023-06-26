@@ -12,7 +12,7 @@ const userSchema = mongoose.Schema({
   billingId: mongoose.Types.ObjectId,
   watchList: [{ "movie_id": String }],
   followingList: [{ "user_id": mongoose.Types.ObjectId }],
-  favorites: [{ "movie_id": Number }],
+  // favorites: [{ "movie_id": Number }],
   profilePicture: String,
   firstName: String,
   lastName: String,

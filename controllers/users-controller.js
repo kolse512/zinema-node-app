@@ -70,6 +70,7 @@ const favoriteToggle = async (req, res) => {
   }
   // const user = await usersDao.findUserById(userId);
   // req.session["currentUser"] = user;
+  console.log("Status = ", status);
   res.json(status);
 }
 
