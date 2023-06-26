@@ -12,6 +12,7 @@ const UserController = (app) => {
   // app.get('/api/users/lastname/:lastname', findUserByLastName);
   app.get('/api/users/searchprofile/:query', searchProfiles);
   app.put('/api/users/updatelist',updateList);
+  app.put('/api/users/follow/:uid', followToggle);
 }
 
 // const findUserByFirstName = async (req,res) => {
@@ -67,6 +68,31 @@ const favoriteToggle = async (req, res) => {
     status = await usersDao.addFavorite(userId, body);
   } else {
     status = await usersDao.deleteFavorite(userId, body);
+  }
+  // const user = await usersDao.findUserById(userId);
+  // req.session["currentUser"] = user;
+  console.log("Status = ", status);
+  res.json(status);
+}
+
+const followToggle = async (req, res) => {
+  const userId = req.params['uid'];
+  console.log("user id in follow toggle: ", userId)
+  const body = req.body;
+  console.log("body in follow toggle: ", body)
+  const typeUpdate = body.update;
+  console.log("type update: ", body.update);
+  delete body["update"];
+  let status = null;
+  let status1 = null;
+  console.log("body == ", body);
+
+  if (typeUpdate) {
+    status = await usersDao.deleteUserFollowers(userId, body);
+    status1 = await usersDao.deleteCurrentUserFollowing(req.session['currentUser']._id, body);
+  } else {
+    status = await usersDao.addUserFollowers(userId, body);
+    status1 = await usersDao.addCurrentUserFollowing(req.session['currentUser']._id, body);
   }
   // const user = await usersDao.findUserById(userId);
   // req.session["currentUser"] = user;

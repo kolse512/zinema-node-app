@@ -11,3 +11,7 @@ export const findUserOnLastname = (lname) => userModel.findOne({lastname : lname
 // main favoriting functionality with username
 export const addFavorite = (uid, mid) => userModel.updateOne({ username: uid }, { $push: { watchList: mid } });
 export const deleteFavorite = (uid, mid) => userModel.updateOne({ username: uid }, { $pull: { watchList: mid } });
+export const deleteUserFollowers = (uid, mid) => userModel.updateOne({username : uid}, {$pull : {followingList : mid}});
+export const deleteCurrentUserFollowing = (uid, mid) => userModel.updateOne({username : uid}, {$pull : {followerList : mid}});
+export const addUserFollowers = (uid, mid) => userModel.updateOne({ username: uid }, { $push: { followingList: mid } });
+export const addCurrentUserFollowing = (uid, mid) => userModel.updateOne({ username: uid }, { $push: { followerList: mid } });

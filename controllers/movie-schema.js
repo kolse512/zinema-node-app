@@ -24,7 +24,7 @@ const movieSchema = mongoose.Schema({
   movie_id: String,
   dateAdded: Date,
   dateExpiry: Date,
-  contentType: {
+  contentType: { 
     type: String,
     enum: ['BASIC', 'PREMIUM', 'ADMIN']
   },
