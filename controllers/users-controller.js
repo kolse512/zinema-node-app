@@ -11,6 +11,7 @@ const UserController = (app) => {
   // app.get('/api/users/firstname/:firstname', findUserByFirstName);
   // app.get('/api/users/lastname/:lastname', findUserByLastName);
   app.get('/api/users/searchprofile/:query', searchProfiles);
+  app.put('/api/users/updatelist',updateList);
 }
 
 // const findUserByFirstName = async (req,res) => {
@@ -104,18 +105,42 @@ const findUsers = async (req, res) => {
 }
 
 const updateAnyUser = async (req, res) => {
-  const UID = req.body.user;
-  const updates = req.body.updates;
+  const UID = req.body.profileId;
+  const updates = req.body.updatedFollowerList;
+  console.log("UID = ", UID);
+  console.log("updates = ", updates);
   const userFound = usersDao.findUserById(UID);
   console.log("USER FOUND = ", userFound);
   if (userFound) {
     const status = await usersDao.updateUser(UID, updates);
     const updatedUser = await usersDao.findUserById(UID);
+    console.log("Updated user = ", updatedUser);
     res.json(updatedUser);
   } else {
     console.log("NO such user found");
     res.status(404);
   }
 }
+
+const updateList = async (req, res) => {
+  const userId = req.session["currentUser"]._id;
+  const obj = req.body.updates;
+
+  const userToupdate = req.session["currentUser"];
+  userToupdate.followingList.push(obj);
+  console.log("userToupdate", userToupdate);
+
+  const status = await usersDao.updateUser(userId, req.body);
+  console.log("UID = ", userId);
+  console.log("Body = ", req.body);
+  const updatedUser = await usersDao.findUserById(userId);
+  console.log("Updated user = ",updatedUser);
+  if (!updatedUser) {
+    res.sendStatus(404);
+    return;
+  }
+  req.session["currentUser"] = updatedUser;
+  res.json(updatedUser);
+};
 
 export default UserController;
